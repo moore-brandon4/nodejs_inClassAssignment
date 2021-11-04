@@ -15,10 +15,23 @@ app.get('/', function (request, response){
 });
 
 app.post('/addToDo', function (request,response){
-    response.send('hello');
+    tasks.push(request.body.newtodo);
+    response.redirect('/');
 });
 
 app.post('/removeToDo', function (request,response){
+    const remove = request.body.check;
+    if(typeof remove === 'string'){
+        tasks.splice( tasks.indexOf(remove),1)
+    }else if (typeof remove === "object"){
+        for (var i=0; i< remove.length; i++){
+            tasks.splice( tasks.indexOf(remove),1)
+        }
+    }
+    response.redirect('/');
+});
+
+app.post('/deleteToDo', function (request,response){
     response.send('world');
 });
 
