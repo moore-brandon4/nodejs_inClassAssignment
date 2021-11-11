@@ -62,7 +62,7 @@ app.post('/addToDo', function (request,response){
 app.post('/removeToDo', function (request,response){
     const remove = request.body.check;
     if(typeof remove === 'string'){
-        ToDo.updateOne({item:remove}, {done:true}, function(err){
+        ToDo.updateOne({_id:remove}, {done:true}, function(err){
             if(err){
                 console.log(err)
             }else{
@@ -73,7 +73,7 @@ app.post('/removeToDo', function (request,response){
         //completed.push(remove);
     }else if (typeof remove === "object"){
         for (var i=0; i< remove.length; i++){
-            ToDo.updateOne({item:remove[1]}, {done:true}, function(err){
+            ToDo.updateOne({_id:remove[1]}, {done:true}, function(err){
                 if(err){
                     console.log(err)
                 }else{
@@ -82,9 +82,10 @@ app.post('/removeToDo', function (request,response){
         //for (var i=0; i< remove.length; i++){
             //tasks.splice( tasks.indexOf(remove[i]),1);
             //completed.push(remove[i]);
-        //}
+        })
         //response.redirect('/');
-    })
+     }
+    }
 });
 
 app.post('/deleteToDo', function (request,response){
