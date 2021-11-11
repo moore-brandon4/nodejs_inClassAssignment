@@ -1,5 +1,12 @@
 // to run code make sure npm install express --save then node index.js
 
+import fetch from 'node-fetch';
+
+const response = await fetch('https://github.com/');
+const body = await response.text();
+
+console.log(body);
+
 let express = require('express');
 let bodyParser = require ('body-parser');
 let mongoose = require ('mongoose');
