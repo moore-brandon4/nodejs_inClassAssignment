@@ -76,8 +76,6 @@ app.post('/removeToDo', function (request,response){
             ToDo.updateOne({_id:remove[1]}, {done:true}, function(err){
                 if(err){
                     console.log(err)
-                }else{
-                    response.redirect('/');
                 }
         //for (var i=0; i< remove.length; i++){
             //tasks.splice( tasks.indexOf(remove[i]),1);
@@ -85,19 +83,33 @@ app.post('/removeToDo', function (request,response){
         })
         //response.redirect('/');
      }
+     response.redirect('/');
     }
 });
 
 app.post('/deleteToDo', function (request,response){
-    const deletetasks = request.body.delete;
-    if(typeof deletetasks === 'string'){
-        completed.splice( completed.indexOf(deletetasks),1);
-    }else if (typeof deletetasks === "object"){
-        for (var i=0; i< deletetasks.length; i++){
-            completed.splice( completed.indexOf(deletetasks),1);
+    const deleteTask = request.body.delete;
+    if(typeof deleteTask === 'string'){
+        //completed.splice( completed.indexOf(deleteTask),1);
+        ToDo.deleteOne({_id: deleteTask}, function(err){
+            if(err){
+                console.log(err);
+            }
+            response.redirect('/');
+        })
+    }else if (typeof deleteTask === "object"){
+        for (var i=0; i< deleteTask.length; i++){
+            //completed.splice( completed.indexOf(deleteTask),1);
+        
+            ToDo.deleteOne({_id: deleteTask[i]}, function(err){
+                if(err){
+                    console.log(err);
+                }
+            })
         }
+        response.redirect('/');
     }
-    response.redirect('/');
+    
 });
 
 app.listen(3000, function(){
