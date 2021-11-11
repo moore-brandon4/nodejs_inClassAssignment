@@ -85,7 +85,7 @@ app.post('/removeToDo', function (request,response){
         //}
         //response.redirect('/');
     })
-};
+});
 
 app.post('/deleteToDo', function (request,response){
     const deletetasks = request.body.delete;
