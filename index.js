@@ -23,7 +23,23 @@ let completed=[];
 
 
 app.get('/', function (request, response){
-    response.render('index', {tasks : tasks, completed : completed});
+    ToDo.find(function(err,todo){
+        if(err){
+            console.log(err);
+        }else{
+            tasks=[];
+            completed=[];
+            for(let i=0; i < todo.length; i++){
+                if(todo[i].done){
+                    completed.push(todo[i]);
+                }else{
+                    tasks.push(todo[i]);
+                }
+            }
+            response.render('index', {tasks : tasks, completed : completed});
+        }
+    })
+    //response.render('index', {tasks : tasks, completed : completed});
     //response.send('Hello World!');
 });
 
@@ -40,7 +56,7 @@ app.post('/addToDo', function (request,response){
         }
     });
     //tasks.push(request.body.newtodo);
-    response.redirect('/');
+    //response.redirect('/');
 });
 
 app.post('/removeToDo', function (request,response){
@@ -57,12 +73,19 @@ app.post('/removeToDo', function (request,response){
         //completed.push(remove);
     }else if (typeof remove === "object"){
         for (var i=0; i< remove.length; i++){
-            tasks.splice( tasks.indexOf(remove[i]),1);
-            completed.push(remove[i]);
-        }
-        response.redirect('/');
-    }
-});
+            ToDo.updateOne({item:remove[1]}, {done:true}, function(err){
+                if(err){
+                    console.log(err)
+                }else{
+                    response.redirect('/');
+                }
+        //for (var i=0; i< remove.length; i++){
+            //tasks.splice( tasks.indexOf(remove[i]),1);
+            //completed.push(remove[i]);
+        //}
+        //response.redirect('/');
+    })
+};
 
 app.post('/deleteToDo', function (request,response){
     const deletetasks = request.body.delete;
