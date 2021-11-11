@@ -1,12 +1,13 @@
 // to run code make sure npm install express --save then node index.js
+//fetch
 
 import fetch from 'node-fetch';
 
-const response = await fetch('https://github.com/');
-const body = await response.text();
-
-console.log(body);
-
+const fetch = require('node-fetch');
+fetch('https://api.github.com/users/github')
+    .then(res => res.json())
+    .then(json => console.log(json));
+    
 let express = require('express');
 let bodyParser = require ('body-parser');
 let mongoose = require ('mongoose');
@@ -27,6 +28,17 @@ db.on('error', console.error.bind(console,'MongoDB connection error:   '));
 
 let tasks=['wake up', 'eat breakfast','brs'];
 let completed=[];
+
+
+
+
+app.get('/zip', function (request, response){
+
+});
+
+app.post('/zip', function (request,response){
+
+});
 
 
 app.get('/', function (request, response){
