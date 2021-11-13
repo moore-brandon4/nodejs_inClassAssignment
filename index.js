@@ -1,7 +1,7 @@
 // to run code make sure npm install express --save then node index.js
 //fetch
 
-import fetch from 'node-fetch';
+//import fetch from 'node-fetch';
 
 const fetch = require('node-fetch');
 fetch('https://api.github.com/users/github')
