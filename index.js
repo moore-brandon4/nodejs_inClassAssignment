@@ -3,10 +3,11 @@
 
 //import fetch from 'node-fetch';
 
-const fetch = require('node-fetch');
-fetch('https://api.github.com/users/github')
-    .then(res => res.json())
-    .then(json => console.log(json));
+
+//const fetch = require('node-fetch');
+//fetch('https://api.github.com/users/github')
+    //.then(res => res.json())
+    //.then(json => console.log(json));
     
 let express = require('express');
 let bodyParser = require ('body-parser');
@@ -30,15 +31,15 @@ let tasks=['wake up', 'eat breakfast','brs'];
 let completed=[];
 
 
+app.use('/public', express.static('public'));
 
+//app.get('/zip', function (request, response){
 
-app.get('/zip', function (request, response){
+//});
 
-});
+//app.post('/zip', function (request,response){
 
-app.post('/zip', function (request,response){
-
-});
+//});
 
 
 app.get('/', function (request, response){
@@ -130,6 +131,20 @@ app.post('/deleteToDo', function (request,response){
     }
     
 });
+
+app.get('/zip', function (request, response){
+    //response.render('index', {tasks : tasks, completed : completed});
+    response.send('Hello World!');
+});
+
+// app.post('/zip', function (request,response){
+//     fetch('your URL with parameters goes here')
+//         .then(res => res.json())
+//         .then(data => {
+//             // set the response to your global variable here
+//             // redirect to the /zip page
+//         });
+// });
 
 app.listen(3000, function(){
     console.log('App is running on port 3000!')
